@@ -1,0 +1,14 @@
+# ninja log v5
+38	129	7542961275844783	C:/Users/CXADO6919/Desktop/en.stsw-stm32065_v1-9-0/STM32F4xx_DSP_StdPeriph_Lib_V1.9.0/Project/lec_10/Debug/Obj/startup_stm32f40_41xxx.o	7ca7ff8e15a94033
+15	430	7542961278635441	C:/Users/CXADO6919/Desktop/en.stsw-stm32065_v1-9-0/STM32F4xx_DSP_StdPeriph_Lib_V1.9.0/Project/lec_10/Debug/Obj/stm32f4xx_it.o	4eb35405f3eb49f5
+5	436	7542961278695244	C:/Users/CXADO6919/Desktop/en.stsw-stm32065_v1-9-0/STM32F4xx_DSP_StdPeriph_Lib_V1.9.0/Project/lec_10/Debug/Obj/misc.o	54dd3d26bfcfd3d3
+21	460	7542961278814840	C:/Users/CXADO6919/Desktop/en.stsw-stm32065_v1-9-0/STM32F4xx_DSP_StdPeriph_Lib_V1.9.0/Project/lec_10/Debug/Obj/stm32f4xx_gpio.o	10b47f6f3350889a
+0	463	7542961278844756	C:/Users/CXADO6919/Desktop/en.stsw-stm32065_v1-9-0/STM32F4xx_DSP_StdPeriph_Lib_V1.9.0/Project/lec_10/Debug/Obj/main.o	d6365aeffc9e403e
+130	473	7542961279123810	C:/Users/CXADO6919/Desktop/en.stsw-stm32065_v1-9-0/STM32F4xx_DSP_StdPeriph_Lib_V1.9.0/Project/lec_10/Debug/Obj/stm32f4xx_syscfg.o	44001ae33844950f
+32	475	7542961279073983	C:/Users/CXADO6919/Desktop/en.stsw-stm32065_v1-9-0/STM32F4xx_DSP_StdPeriph_Lib_V1.9.0/Project/lec_10/Debug/Obj/system_stm32f4xx.o	fca67624f07fb26c
+26	489	7542961279123810	C:/Users/CXADO6919/Desktop/en.stsw-stm32065_v1-9-0/STM32F4xx_DSP_StdPeriph_Lib_V1.9.0/Project/lec_10/Debug/Obj/stm32f4xx_adc.o	642061a96cdb2242
+10	504	7542961279333119	C:/Users/CXADO6919/Desktop/en.stsw-stm32065_v1-9-0/STM32F4xx_DSP_StdPeriph_Lib_V1.9.0/Project/lec_10/Debug/Obj/stm32f4xx_rcc.o	ec9b2266e28c2563
+95	519	7542961279452716	C:/Users/CXADO6919/Desktop/en.stsw-stm32065_v1-9-0/STM32F4xx_DSP_StdPeriph_Lib_V1.9.0/Project/lec_10/Debug/Obj/stm32f4xx_usart.o	913773079b986a36
+90	598	7542961280262301	C:/Users/CXADO6919/Desktop/en.stsw-stm32065_v1-9-0/STM32F4xx_DSP_StdPeriph_Lib_V1.9.0/Project/lec_10/Debug/Obj/stm32f4xx_tim.o	5c0e28dd094c502d
+600	758	7542961282097443	C:/Users/CXADO6919/Desktop/en.stsw-stm32065_v1-9-0/STM32F4xx_DSP_StdPeriph_Lib_V1.9.0/Project/lec_10/Debug/Exe/lec_10.out	61dea9e8105aa919
+761	808	7542961282679111	C:/Users/CXADO6919/Desktop/en.stsw-stm32065_v1-9-0/STM32F4xx_DSP_StdPeriph_Lib_V1.9.0/Project/lec_10/Debug/Exe/lec_10.hex	a71939508dd20f3d
