@@ -6,6 +6,8 @@ uint8_t u16_2_8 = 0;
 uint16_t send_count = 0;
 uint8_t GetADC_Array[20];
 unsigned char getdata;
+int intensity_ary[4] = {300, 500, 1000, 2000}; 
+int intensity = 0;
 void Delay(__IO uint32_t nCount)
 {
 for(; nCount != 0; nCount--);
@@ -52,6 +54,16 @@ GPIO_PinAFConfig(GPIOB, GPIO_PinSource6, GPIO_AF_TIM4);
 GPIO_PinAFConfig(GPIOB, GPIO_PinSource7, GPIO_AF_TIM4);
 GPIO_PinAFConfig(GPIOB, GPIO_PinSource8, GPIO_AF_TIM4);
 GPIO_PinAFConfig(GPIOB, GPIO_PinSource9, GPIO_AF_TIM4);
+}
+
+void SW_init(void)
+{
+RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+GPIO_InitTypeDef GPIO_InitStructure;
+GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
+GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+GPIO_Init(GPIOC, &GPIO_InitStructure);
 }
 
 void Count_Progress(int d_3, int d_2, int d_1, int d_0)
@@ -188,6 +200,25 @@ ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);
 ADC_Cmd(ADC1, ENABLE);
 }
 
+void EXTI13_Configuration(void)
+{
+RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
+SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOC, EXTI_PinSource13);
+EXTI_InitTypeDef EXTI_InitStructure;
+NVIC_InitTypeDef NVIC_InitStructure;
+EXTI_InitStructure.EXTI_Line = EXTI_Line13;
+EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
+EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+EXTI_Init(&EXTI_InitStructure);
+NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
+NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQn;
+NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+NVIC_Init(&NVIC_InitStructure);
+}
+
 void ADC_IRQHandler(void)
 {
 if (ADC_GetITStatus(ADC1, ADC_IT_EOC) != RESET)
@@ -203,19 +234,19 @@ if(TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
 {
   Count_Progress(getdata/1000, ((getdata/100)%10), ((getdata/10)%10), (getdata%10));
   if(getdata <= 60){
-  TIM4->CCR1 = 25000;
+  TIM4->CCR1 = intensity_ary[intensity];
   TIM4->CCR2 = 0;
   TIM4->CCR3 = 0;
 }
 else if(getdata > 60 && getdata <= 80){
   TIM4->CCR1 = 0;
-  TIM4->CCR2 = 25000;
+  TIM4->CCR2 = intensity_ary[intensity];
   TIM4->CCR3 = 0;
 }
 else if(getdata > 80){
   TIM4->CCR1 = 0;
   TIM4->CCR2 = 0;
-  TIM4->CCR3 = 25000;
+  TIM4->CCR3 = intensity_ary[intensity];
 }
 TIM4->CCR4 = 47+getdata;
 GetADC_Array[send_count] = (uint8_t) (ADC1_data>>8);
@@ -238,6 +269,18 @@ TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
 }
 }
 
+void EXTI15_10_IRQHandler(void)
+{
+/* Make sure that interrupt flag is set */
+if (EXTI_GetITStatus(EXTI_Line13) != RESET)
+{
+  intensity++;
+  if(intensity > 3){
+    intensity = 0;
+  }
+  EXTI_ClearITPendingBit(EXTI_Line13);
+}
+}
 
 int main()
 {
@@ -246,6 +289,7 @@ FND_Init();
 RGB_LED_init();
 TIM4_Configuration();
 PWM_TIM4_Configuration();
+EXTI13_Configuration();
 TIM2_Configuration(10);
 USART2_Configuration();
 ADC_Configuration();
