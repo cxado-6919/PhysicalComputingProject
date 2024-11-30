@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\Program Files\IAR Systems\Embedded Workbench 9.2\common\bin\cspybat" -f "C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Project\lec_10\settings\lec_10.Debug.general.xcl" --backend -f "C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Project\lec_10\settings\lec_10.Debug.driver.xcl" 
+& "C:\Program Files\IAR Systems\Embedded Workbench 9.2\common\bin\cspybat" -f "C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Project\PhysicalComputingProject\settings\lec_10.Debug.general.xcl" --backend -f "C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Project\PhysicalComputingProject\settings\lec_10.Debug.driver.xcl" 
 }
 else
 {
-& "C:\Program Files\IAR Systems\Embedded Workbench 9.2\common\bin\cspybat" -f "C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Project\lec_10\settings\lec_10.Debug.general.xcl" --debug_file=$debugfile --backend -f "C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Project\lec_10\settings\lec_10.Debug.driver.xcl" 
+& "C:\Program Files\IAR Systems\Embedded Workbench 9.2\common\bin\cspybat" -f "C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Project\PhysicalComputingProject\settings\lec_10.Debug.general.xcl" --debug_file=$debugfile --backend -f "C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Project\PhysicalComputingProject\settings\lec_10.Debug.driver.xcl" 
 }

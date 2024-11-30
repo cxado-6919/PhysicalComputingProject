@@ -5,9 +5,9 @@
 -funsigned-char
 -MD
 -MF
-C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Project\lec_10\Debug\BrowseInfo\stm32f4xx_gpio.pbi.dep
+C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Project\PhysicalComputingProject\Debug\BrowseInfo\stm32f4xx_gpio.pbi.dep
 -o
-C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Project\lec_10\Debug\BrowseInfo\stm32f4xx_gpio.pbi
+C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Project\PhysicalComputingProject\Debug\BrowseInfo\stm32f4xx_gpio.pbi
 -I
 C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Libraries\STM32F4xx_StdPeriph_Driver\src
 -I

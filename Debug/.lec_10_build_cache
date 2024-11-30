@@ -3,9 +3,9 @@
     <Tool>
         <Name>linker</Name>
         <Parent>
-            <Path>C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Project\lec_10\Debug\Exe\lec_10.out</Path>
+            <Path>C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Project\PhysicalComputingProject\Debug\Exe\lec_10.out</Path>
             <Output>
-                <Path>C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Project\lec_10\Debug\List\lec_10.map</Path>
+                <Path>C:\Users\CXADO6919\Desktop\en.stsw-stm32065_v1-9-0\STM32F4xx_DSP_StdPeriph_Lib_V1.9.0\Project\PhysicalComputingProject\Debug\List\lec_10.map</Path>
             </Output>
         </Parent>
     </Tool>

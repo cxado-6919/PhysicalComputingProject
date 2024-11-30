@@ -51,6 +51,32 @@
         <FirstRun>0</FirstRun>
         <MemConfigValue>C:\Program Files\IAR Systems\Embedded Workbench 9.2\arm\config\debugger\ST\STM32F411RE.ddf</MemConfigValue>
     </PlDriver>
+    <Exceptions>
+        <StopOnUncaught>_ 0</StopOnUncaught>
+        <StopOnThrow>_ 0</StopOnThrow>
+    </Exceptions>
+    <SWOTraceHWSettings>
+        <OverrideDefaultClocks>0</OverrideDefaultClocks>
+        <CpuClock>100000000</CpuClock>
+        <ClockAutoDetect>1</ClockAutoDetect>
+        <ClockWanted>2000000</ClockWanted>
+        <JtagSpeed>2000000</JtagSpeed>
+        <Prescaler>50</Prescaler>
+        <TimeStampPrescIndex>0</TimeStampPrescIndex>
+        <TimeStampPrescData>0</TimeStampPrescData>
+        <PcSampCYCTAP>1</PcSampCYCTAP>
+        <PcSampPOSTCNT>15</PcSampPOSTCNT>
+        <PcSampIndex>0</PcSampIndex>
+        <DataLogMode>0</DataLogMode>
+        <ITMportsEnable>0</ITMportsEnable>
+        <ITMportsTermIO>0</ITMportsTermIO>
+        <ITMportsLogFile>0</ITMportsLogFile>
+        <ITMlogFile>$PROJ_DIR$\ITM.log</ITMlogFile>
+    </SWOTraceHWSettings>
+    <ArmDriver>
+        <EnableCache>0</EnableCache>
+        <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
+    </ArmDriver>
     <Trace2>
         <Enabled>0</Enabled>
         <ShowSource>0</ShowSource>
@@ -96,32 +122,6 @@
         <ShowTimeSum>1</ShowTimeSum>
         <SumSortOrder>0</SumSortOrder>
     </EventLog>
-    <Exceptions>
-        <StopOnUncaught>_ 0</StopOnUncaught>
-        <StopOnThrow>_ 0</StopOnThrow>
-    </Exceptions>
-    <SWOTraceHWSettings>
-        <OverrideDefaultClocks>0</OverrideDefaultClocks>
-        <CpuClock>100000000</CpuClock>
-        <ClockAutoDetect>1</ClockAutoDetect>
-        <ClockWanted>2000000</ClockWanted>
-        <JtagSpeed>2000000</JtagSpeed>
-        <Prescaler>50</Prescaler>
-        <TimeStampPrescIndex>0</TimeStampPrescIndex>
-        <TimeStampPrescData>0</TimeStampPrescData>
-        <PcSampCYCTAP>1</PcSampCYCTAP>
-        <PcSampPOSTCNT>15</PcSampPOSTCNT>
-        <PcSampIndex>0</PcSampIndex>
-        <DataLogMode>0</DataLogMode>
-        <ITMportsEnable>0</ITMportsEnable>
-        <ITMportsTermIO>0</ITMportsTermIO>
-        <ITMportsLogFile>0</ITMportsLogFile>
-        <ITMlogFile>$PROJ_DIR$\ITM.log</ITMlogFile>
-    </SWOTraceHWSettings>
-    <ArmDriver>
-        <EnableCache>0</EnableCache>
-        <EnforceMemoryConfiguration>1</EnforceMemoryConfiguration>
-    </ArmDriver>
     <TermIOLog>
         <LoggingEnabled>_ 0</LoggingEnabled>
         <LogFile>_ ""</LogFile>

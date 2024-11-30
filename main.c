@@ -1,9 +1,11 @@
 #include "stm32f4xx.h"
+unsigned char Font[10] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xD8, 0x80, 0x90};
 uint16_t ADC1_data = 0;
 uint16_t test_send = 0b0000111100001111;
 uint8_t u16_2_8 = 0;
 uint16_t send_count = 0;
 uint8_t GetADC_Array[20];
+unsigned char getdata;
 void Delay(__IO uint32_t nCount)
 {
 for(; nCount != 0; nCount--);
@@ -35,6 +37,22 @@ GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3;
 GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
 GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
 GPIO_Init(GPIOB, &GPIO_InitStructure);
+}
+
+void Count_Progress(int d_3, int d_2, int d_1, int d_0)
+{
+GPIO_Write(GPIOB, 0x0008);
+GPIO_Write(GPIOC, Font[d_0]<<1);
+  Delay(1000);
+GPIO_Write(GPIOB, 0x0004);
+GPIO_Write(GPIOC, Font[d_1]<<1);
+  Delay(1000);
+GPIO_Write(GPIOB, 0x0002);
+GPIO_Write(GPIOC, Font[d_2]<<1);
+  Delay(1000);
+GPIO_Write(GPIOB, 0x0001);
+GPIO_Write(GPIOC, Font[d_3]<<1);
+  Delay(1000);
 }
 
 void Serial_Send(unsigned char t)
@@ -93,6 +111,7 @@ USART_Init(USART2, &USART_InitStructure);
 USART_Cmd(USART2, ENABLE);
 }
 
+
 void ADC_Configuration(void)
 {
 RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
@@ -141,6 +160,7 @@ void TIM2_IRQHandler(void)
 {
 if(TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
 {
+  Count_Progress(getdata/1000, ((getdata/100)%10), ((getdata/10)%10), (getdata%10));
 GetADC_Array[send_count] = (uint8_t) (ADC1_data>>8);
 send_count++;
 GetADC_Array[send_count] = (uint8_t) (ADC1_data);
@@ -164,20 +184,20 @@ TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
 int main()
 {
 LED_init();
+FND_Init();
 TIM2_Configuration(10);
 USART2_Configuration();
 ADC_Configuration();
 ADC_SoftwareStartConv(ADC1);
-unsigned char getdata;
 while(1)
 {
-getdata = Serial_Receive();
+  getdata = Serial_Receive();
 if (getdata != 0)
 {
-GPIO_SetBits(GPIOA, GPIO_Pin_5);
-Delay(1000);
-GPIO_ResetBits(GPIOA, GPIO_Pin_5);
-Delay(1000);
+  GPIO_SetBits(GPIOA, GPIO_Pin_5);
+  Delay(1000);
+  GPIO_ResetBits(GPIOA, GPIO_Pin_5);
+  Delay(1000);
 }
 }
 return 0;
