@@ -44,13 +44,14 @@ void RGB_LED_init(void)
 RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
 GPIO_InitTypeDef GPIO_InitStructure;
 GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8;
+GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8 | GPIO_Pin_9;
 GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
 GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
 GPIO_Init(GPIOB, &GPIO_InitStructure);
 GPIO_PinAFConfig(GPIOB, GPIO_PinSource6, GPIO_AF_TIM4);
 GPIO_PinAFConfig(GPIOB, GPIO_PinSource7, GPIO_AF_TIM4);
 GPIO_PinAFConfig(GPIOB, GPIO_PinSource8, GPIO_AF_TIM4);
+GPIO_PinAFConfig(GPIOB, GPIO_PinSource9, GPIO_AF_TIM4);
 }
 
 void Count_Progress(int d_3, int d_2, int d_1, int d_0)
@@ -103,16 +104,29 @@ NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 NVIC_Init(&NVIC_InitStructure);
 }
 
-void TIM4_Configuration(int period)
+void TIM4_Configuration(void)
 {
 RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);
 TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
-TIM_TimeBaseStructure.TIM_Prescaler = 1 - 1;
-TIM_TimeBaseStructure.TIM_Period = period - 1;
+TIM_TimeBaseStructure.TIM_Prescaler = 169 - 1;
+TIM_TimeBaseStructure.TIM_Period = 1895 - 1;
 TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);
 TIM_Cmd(TIM4, ENABLE);
+}
+
+void PWM_TIM4_Configuration(void)
+{
+TIM_OCInitTypeDef TIM_OCInitStructure;
+TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
+TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+TIM_OCInitStructure.TIM_Pulse = 0;
+TIM_OC1Init(TIM4, &TIM_OCInitStructure);
+TIM_OC2Init(TIM4, &TIM_OCInitStructure);
+TIM_OC3Init(TIM4, &TIM_OCInitStructure);
+TIM_OC4Init(TIM4, &TIM_OCInitStructure);
 }
 
 
@@ -203,6 +217,7 @@ else if(getdata > 80){
   TIM4->CCR2 = 0;
   TIM4->CCR3 = 25000;
 }
+TIM4->CCR4 = 47+getdata;
 GetADC_Array[send_count] = (uint8_t) (ADC1_data>>8);
 send_count++;
 GetADC_Array[send_count] = (uint8_t) (ADC1_data);
@@ -223,27 +238,15 @@ TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
 }
 }
 
-void PWM_TIM4_Configuration(void)
-{
-TIM_OCInitTypeDef TIM_OCInitStructure;
-TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
-TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
-TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-TIM_OCInitStructure.TIM_Pulse = 0;
-TIM_OC1Init(TIM4, &TIM_OCInitStructure);
-TIM_OC2Init(TIM4, &TIM_OCInitStructure);
-TIM_OC3Init(TIM4, &TIM_OCInitStructure);
-}
-
 
 int main()
 {
 LED_init();
 FND_Init();
 RGB_LED_init();
-TIM2_Configuration(10);
-TIM4_Configuration(16000);
+TIM4_Configuration();
 PWM_TIM4_Configuration();
+TIM2_Configuration(10);
 USART2_Configuration();
 ADC_Configuration();
 ADC_SoftwareStartConv(ADC1);
