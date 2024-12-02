@@ -1,5 +1,6 @@
 #include "stm32f4xx.h"
 unsigned char Font[10] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xD8, 0x80, 0x90};
+unsigned char ERROR_FONT[4] = {0x88, 0x86};
 uint16_t ADC1_data = 0;
 uint16_t test_send = 0b0000111100001111;
 uint8_t u16_2_8 = 0;
@@ -8,6 +9,7 @@ uint8_t GetADC_Array[20];
 unsigned char getdata;
 int intensity_ary[4] = {300, 500, 1000, 2000}; 
 int intensity = 0;
+
 void Delay(__IO uint32_t nCount)
 {
 for(; nCount != 0; nCount--);
@@ -80,6 +82,25 @@ GPIO_Write(GPIOC, Font[d_2]<<1);
 GPIO_Write(GPIOB, 0x0001);
 GPIO_Write(GPIOC, Font[d_3]<<1);
   Delay(1000);
+}
+
+void Display_Error(void)
+{
+    GPIO_Write(GPIOB, 0x0008);
+    GPIO_Write(GPIOC, ERROR_FONT[0] << 1); // 'R'
+    Delay(1000);
+
+    GPIO_Write(GPIOB, 0x0004);
+    GPIO_Write(GPIOC, Font[0]<< 1); // 'O'
+    Delay(1000);
+
+    GPIO_Write(GPIOB, 0x0002);
+    GPIO_Write(GPIOC,  ERROR_FONT[0] << 1); // 'R'
+    Delay(1000);
+
+    GPIO_Write(GPIOB, 0x0001);
+    GPIO_Write(GPIOC, ERROR_FONT[1] << 1); // 'E'
+    Delay(1000);
 }
 
 void Serial_Send(unsigned char t)
@@ -232,8 +253,14 @@ void TIM2_IRQHandler(void)
 {
 if(TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
 {
+  if(getdata != 0){
   Count_Progress(getdata/1000, ((getdata/100)%10), ((getdata/10)%10), (getdata%10));
-  if(getdata <= 60){
+  }
+  else{
+    Display_Error();
+  }
+    
+  if(getdata <= 60 && getdata >= 1){
   TIM4->CCR1 = intensity_ary[intensity];
   TIM4->CCR2 = 0;
   TIM4->CCR3 = 0;
@@ -246,6 +273,11 @@ else if(getdata > 60 && getdata <= 80){
 else if(getdata > 80){
   TIM4->CCR1 = 0;
   TIM4->CCR2 = 0;
+  TIM4->CCR3 = intensity_ary[intensity];
+}
+else if(getdata == 0){
+  TIM4->CCR1 = intensity_ary[intensity];
+  TIM4->CCR2 = intensity_ary[intensity];
   TIM4->CCR3 = intensity_ary[intensity];
 }
 TIM4->CCR4 = 47+getdata;
